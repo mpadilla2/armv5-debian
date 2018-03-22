@@ -13,16 +13,16 @@ script:
   tar xzf qemu-arm-static.tar.gz &&
   popd
 # build the image
-- docker build -t mpadilla2/kirkwood-debian:build .
+- docker build -t "$DOCKER_NAMESPACE"/armv5te-debian:build .
 # test image
-- docker run mpadilla2/kirkwood-debian:build uname -a
+- docker run "$DOCKER_NAMESPACE"/armv5te-debian:build uname -a
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
     TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
-    docker tag mpadilla2/kirkwood-debian:build mpadilla2/kirkwood-debian:$TAG
-    docker tag mpadilla2/kirkwood-debian:build mpadilla2/kirkwood-debian:latest
-    docker push mpadilla2/kirkwood-debian:$TAG
-    docker push mpadilla2/kirkwood-debian:latest
+    docker tag "$DOCKER_NAMESPACE"/armv5te-debian:build "$DOCKER_NAMESPACE"/armv5te-debian:$TAG
+    docker tag "$DOCKER_NAMESPACE"/armv5te-debian:build "$DOCKER_NAMESPACE"/armv5te-debian:latest
+    docker push "$DOCKER_NAMESPACE"/armv5te-debian:$TAG
+    docker push "$DOCKER_NAMESPACE"/armv5te-debian:latest
   fi
