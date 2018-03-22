@@ -12,7 +12,7 @@ script:
   curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v2.11.0/qemu-arm-static.tar.gz &&
   tar xzf qemu-arm-static.tar.gz &&
   popd
-# build image
+# build the image
 - docker build -t mpadilla2/kirkwood-debian:build .
 # test image
 - docker run mpadilla2/kirkwood-debian:build uname -a
